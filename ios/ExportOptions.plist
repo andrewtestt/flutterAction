@@ -11,7 +11,7 @@
 	<key>provisioningProfiles</key>
 	<dict>
 		<key>com.kevych.untitled1</key>
-		<string>flutter1</string>
+		<string>flutter</string>
 	</dict>
 	<key>signingCertificate</key>
 	<string>4C54AA64C1F2F48C17E72C30213C3048A0D26369</string>
