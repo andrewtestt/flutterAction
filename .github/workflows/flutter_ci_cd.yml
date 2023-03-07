@@ -154,7 +154,7 @@ jobs:
         echo "Increasing keychain auto lock timeout"
         security set-keychain-settings -lut 1800 ~/Library/Keychains/build.keychain
 
-        flutter build ipa --release
+        flutter build ipa --release --export-options-plist=ios/ExportOptions.plist
 
         echo "Locking keychain"
         security lock-keychain ~/Library/Keychains/build.keychain
