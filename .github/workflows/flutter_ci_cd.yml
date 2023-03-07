@@ -173,7 +173,7 @@ jobs:
         PATH_TO_IPA: ${{ env.PATH_TO_IPA }}
       run: |
         echo "Setup private key"
-        mkdir ~/.appstoreconnect/private_keys/
+        mkdir -p ~/.appstoreconnect/private_keys/
         echo "$IOS_API_KEY" >> "~/.appstoreconnect/private_keys/AuthKey_${{ env.IOS_API_KEY_ID }}.p8"
         
         echo "Upload to TestFlight"
