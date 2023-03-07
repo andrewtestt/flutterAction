@@ -9,13 +9,9 @@
 		<key>com.kevych.untitled1</key>
 		<string>flutter</string>
 	</dict>
-	<key>signingCertificate</key>
-	<string>Apple Development</string>
 	<key>signingStyle</key>
 	<string>manual</string>
 	<key>teamID</key>
 	<string>F7545ULWS4</string>
-	<key>thinning</key>
-	<string>&lt;none&gt;</string>
 </dict>
 </plist>
