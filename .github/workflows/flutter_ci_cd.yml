@@ -177,7 +177,7 @@ jobs:
         echo "$IOS_API_KEY" >> "~/.appstoreconnect/private_keys/AuthKey_${{ env.IOS_API_KEY_ID }}.p8"
         
         echo "Upload to TestFlight"
-        xcrun altool --upload-app -t ios -f $PATH_TO_IPA --apiKey "$IOS_API_KEY_ID" --apiIssuer "$IOS_API_ISSUER_ID"
+        xcrun altool --upload-app -t ios -f $PATH_TO_IPA --apiKey "${{ secrets.IOS_API_KEY }}" --apiIssuer "${{ secrets.IOS_API_ISSUER_ID }}"
 
         echo "Clean up"
         rm -rf ~/.appstoreconnect/private_keys/
