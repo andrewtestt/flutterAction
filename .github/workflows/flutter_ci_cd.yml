@@ -11,7 +11,7 @@ env:
   FLUTTER_VERSION: '3.3.10'
   XCODE_VERSION: '14.2'
   PATH_TO_AAB: 'build/app/outputs/bundle/release/app-release.aab'
-  PATH_TO_IPA: 'build/ios/ipa/andrewtestt.ipa'
+  PATH_TO_IPA: 'build/ios/ipa/untitled1.ipa'
 
 jobs:
   code-analysis-and-testing:
