@@ -4,7 +4,7 @@ name: Flutter CI + CD
 on:
  push:
     branches:
-      - new
+      - main
 
 env:
   FLUTTER_CHANNEL: 'stable' # 'stable', 'beta', or 'master', default to: 'stable'
