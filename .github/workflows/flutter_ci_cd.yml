@@ -174,7 +174,7 @@ jobs:
       run: |
         echo "Setup private key"
         mkdir -p ~/.appstoreconnect/private_keys/
-        echo -n "$IOS_API_KEY" | --output ~/.appstoreconnect/private_keys/AuthKey_$IOS_API_KEY_ID.p8
+        echo -n "$IOS_API_KEY" | base64 --decode --output ~/.appstoreconnect/private_keys/AuthKey_$IOS_API_KEY_ID.p8
 
         
         echo "Upload to TestFlight"
