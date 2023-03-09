@@ -6,12 +6,12 @@
 	<string>app-store</string>
 	<key>provisioningProfiles</key>
 	<dict>
-		<key>com.spill.spill</key>
+		<key>com.kevych.untitled1</key>
 		<string>flutter</string>
 	</dict>
 	<key>signingStyle</key>
 	<string>manual</string>
 	<key>teamID</key>
-	<string>8ZHVUL7LT5</string>
+	<string>F7545ULWS4</string>
 </dict>
 </plist>
