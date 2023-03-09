@@ -11,6 +11,7 @@ env:
   FLUTTER_VERSION: '3.3.10'
   XCODE_VERSION: '14.2'
   PATH_TO_AAB: 'build/app/outputs/bundle/release/app-release.aab'
+  ANDROID_PACKAGE_NAME: 'com.kevych.untitled1'
   PATH_TO_IPA: 'build/ios/ipa/untitled1.ipa'
 
 jobs:
@@ -40,7 +41,6 @@ jobs:
 
 
   android:
-    if: false
     name: Android CI/CD
     needs: code-analysis-and-testing
     runs-on: ubuntu-latest
