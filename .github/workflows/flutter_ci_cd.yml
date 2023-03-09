@@ -41,6 +41,7 @@ jobs:
 
 
   android:
+    if: true
     name: Android CI/CD
     needs: code-analysis-and-testing
     runs-on: ubuntu-latest
@@ -115,24 +116,19 @@ jobs:
         echo "$FS_P12_FILE ">> cert.temp.txt
         base64 --decode prov.temp.txt > prov.temp.mobileprovision
         base64 --decode cert.temp.txt > cert.temp.p12
-
         echo "Copy provisioning file to the correct locations"
         mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
         cp prov.temp.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/prov.mobileprovision
-
         echo "Create a new keychain & import p12 certificate"
         security create-keychain -p "$FS_KEYCHAIN_PASS" build.keychain
         security import cert.temp.p12 -t agg -k ~/Library/Keychains/build.keychain -P "$FS_P12_PASS" -A
-
         echo "Set new keychain as a default"
         security list-keychains -s ~/Library/Keychains/build.keychain
         security default-keychain -s ~/Library/Keychains/build.keychain
         security unlock-keychain -p "$FS_KEYCHAIN_PASS" ~/Library/Keychains/build.keychain
         security set-key-partition-list -S apple-tool:,apple: -s -k "$FS_KEYCHAIN_PASS" ~/Library/Keychains/build.keychain
-
         echo "Clean up temp files"
         rm *.temp.*
-
     - name: Set up Flutter
       uses: subosito/flutter-action@v2
       with:
@@ -148,17 +144,13 @@ jobs:
       run: |
         echo "Unlocking keychain"
         security unlock-keychain -p "$FS_KEYCHAIN_PASS" ~/Library/Keychains/build.keychain
-
         # Important, just in case the build takes longer than the default 300s timeout
         # Otherwise the build will freeze at signing the frameworks if the keychain is locked
         echo "Increasing keychain auto lock timeout"
         security set-keychain-settings -lut 1800 ~/Library/Keychains/build.keychain
-
         flutter build ipa --release --export-options-plist=ios/ExportOptions.plist
-
         echo "Locking keychain"
         security lock-keychain ~/Library/Keychains/build.keychain
-
     - name: Upload IPA artifact
       uses: actions/upload-artifact@v3
       with:
@@ -175,7 +167,6 @@ jobs:
         echo "Setup private key"
         mkdir -p ~/private_keys/
         echo -n "$IOS_API_KEY" | base64 --decode --output ~/private_keys/AuthKey_$IOS_API_KEY_ID.p8
-
         
         echo "Upload to TestFlight"
         xcrun altool --upload-app -t ios -f $PATH_TO_IPA --apiKey $IOS_API_KEY_ID --apiIssuer $IOS_API_ISSUER_ID
