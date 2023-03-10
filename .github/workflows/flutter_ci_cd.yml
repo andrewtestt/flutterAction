@@ -106,10 +106,11 @@ jobs:
       uses: actions/create-release@v1
       id: create_release
       with:
-        draft: false
-        prerelease: false
-        tag_name: ${{ steps.gitversion.outputs.SemVer }}
-        body: ${{ github.event.head_commit.message }}
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: TODO
+          draft: true
+          prerelease: false
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
