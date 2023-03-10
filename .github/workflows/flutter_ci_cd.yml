@@ -110,9 +110,6 @@ jobs:
       with:
         useConfigFile: true
         configFilePath: ./.github/gitversion.yml
-        
-    - run: |
-        echo "Major: ${{ steps.gitversion.outputs.SemVer }}"
 
     - name: Prepare for release
       uses: actions/create-release@v1
