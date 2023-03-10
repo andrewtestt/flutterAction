@@ -108,7 +108,7 @@ jobs:
       id: gitversion # step id used as reference for output values
       uses: gittools/actions/gitversion/execute@v0.9.7
     - run: |
-        echo "Major: ${{ steps.gitversion.outputs.fullSemVer }}"
+        echo "Major: ${{ steps.gitversion.outputs.SemVer }}"
 
     - name: Prepare for release
       uses: actions/create-release@v1
