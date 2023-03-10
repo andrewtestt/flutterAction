@@ -120,8 +120,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.FS_GITHUB_TOKEN }}
       with:
-          tag_name: ${{ steps.gitversion.outputs.fullSemVer }}
-          release_name: Release ${{ steps.gitversion.outputs.fullSemVer }}
+          tag_name: ${{ steps.gitversion.outputs.SemVer }}
+          release_name: Release ${{ steps.gitversion.outputs.SemVer }}
           body: |
             Changes in this Release
             - First Change
@@ -178,7 +178,7 @@ jobs:
         # Otherwise the build will freeze at signing the frameworks if the keychain is locked
         echo "Increasing keychain auto lock timeout"
         security set-keychain-settings -lut 1800 ~/Library/Keychains/build.keychain
-        flutter build ipa --release --export-options-plist=ios/ExportOptions.plist
+        flutter build ipa --release --build-number=${{ steps.gitversion.outputs.SemVer }} --export-options-plist=ios/ExportOptions.plist
         echo "Locking keychain"
         security lock-keychain ~/Library/Keychains/build.keychain
     - name: Upload IPA artifact
