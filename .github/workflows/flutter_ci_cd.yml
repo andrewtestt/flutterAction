@@ -110,8 +110,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.FS_GITHUB_TOKEN }}
       with:
-          tag_name: ${{ steps.gitversion.outputs.SemVer }}
-          release_name: Release ${{ steps.gitversion.outputs.SemVer }}
+          tag_name: ${{ steps.step_version.outputs.version }}
+          release_name: Release ${{ steps.step_version.outputs.version }}
           body: |
             Changes in this Release
             - First Change
