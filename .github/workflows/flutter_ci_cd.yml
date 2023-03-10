@@ -93,7 +93,10 @@ jobs:
     runs-on: macos-12
     timeout-minutes: 30
     steps:  
-    
+
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      
     - name: Install GitVersion
       uses: gittools/actions/gitversion/setup@v0.9.7
       with:
@@ -105,14 +108,10 @@ jobs:
       with:
         draft: false
         prerelease: false
-        release_name: ${{ steps.gitversion.outputs.SemVer }}
         tag_name: ${{ steps.gitversion.outputs.SemVer }}
         body: ${{ github.event.head_commit.message }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Checkout repository
-      uses: actions/checkout@v3
     
     - name: Set up Xcode ${{ env.XCODE_VERSION }}
       uses: maxim-lobanov/setup-xcode@v1
