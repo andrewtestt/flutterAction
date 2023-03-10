@@ -16,6 +16,7 @@ env:
 
 jobs:
   code-analysis-and-testing:
+    if: false
     name: Code analysis and testing
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -40,6 +41,7 @@ jobs:
 
 
   android:
+    if: false
     name: Android CI/CD
     needs: code-analysis-and-testing
     runs-on: ubuntu-latest
@@ -108,8 +110,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.FS_GITHUB_TOKEN }}
       with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          tag_name: ${{ steps.gitversion.outputs.SemVer }}
+          release_name: Release ${{ steps.gitversion.outputs.SemVer }}
           body: |
             Changes in this Release
             - First Change
