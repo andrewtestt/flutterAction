@@ -105,7 +105,7 @@ jobs:
         versionSpec: '5.x'
         
     - run: |
-        echo "Major: ${{ steps.gitversion.outputs.SemVer }}"
+        echo "Major: ${{ steps.gitversion.outputs.fullSemVer }}"
 
     - name: Prepare for release
       uses: actions/create-release@v1
