@@ -105,14 +105,17 @@ jobs:
     - name: Prepare for release
       uses: actions/create-release@v1
       id: create_release
-      with:
-          tag_name: ${{ github.event.release.tag_name }}
-          release_name: Release ${{ github.ref }}
-          body: TODO
-          draft: true
-          prerelease: false
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            Changes in this Release
+            - First Change
+            - Second Change
+          draft: false
+          prerelease: false
     
     - name: Set up Xcode ${{ env.XCODE_VERSION }}
       uses: maxim-lobanov/setup-xcode@v1
