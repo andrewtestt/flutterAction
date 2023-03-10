@@ -139,14 +139,6 @@ jobs:
         echo "CommitsSinceVersionSourcePadded: ${{ steps.gitversion.outputs.commitsSinceVersionSourcePadded }}"
         echo "CommitDate: ${{ steps.gitversion.outputs.commitDate }}"
 
-    - name: Create Release
-      if: contains(github.ref, "new")
-      uses: ncipollo/release-action@v1.6.1
-      with:
-        tag: "${{ steps.gitversion.outputs.fullSemVer }}"
-        # The Github token.
-       token: "${{ secrets.FS_GITHUB_TOKEN }}"
-
     - name: Prepare for release
       uses: actions/create-release@v1
       id: create_release
