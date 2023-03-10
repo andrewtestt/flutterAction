@@ -100,7 +100,7 @@ jobs:
       with:
         versionSpec: '5.x'
         
-    - name: release
+    - name: Prepare for release
       uses: actions/create-release@v1
       id: create_release
       with:
@@ -111,9 +111,7 @@ jobs:
         body: ${{ github.event.head_commit.message }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        echo "gitversion  ${{ steps.gitversion.outputs.SemVer }}"
-    
+
     - name: Checkout repository
       uses: actions/checkout@v3
     
