@@ -89,7 +89,7 @@ jobs:
 
   release:
     name: iOS CI/CD
-#     needs: code-analysis-and-testing
+    # needs: code-analysis-and-testing
     runs-on: macos-latest
     timeout-minutes: 30
     steps:  
@@ -112,56 +112,14 @@ jobs:
 #        useConfigFile: true
 #        configFilePath: ./.github/gitversion.yml
 
-
-
-    - uses: actions/checkout@v1
-    - name: Set output
-      id: vars
-      run: echo "GIT_TAG=`echo $(git describe --tags --abbrev=0)`" >> $GITHUB_ENV
-    - name: Check output
-      env:
-        RELEASE_VERSION: ${{ steps.vars.outputs.GIT_TAG }}
-      run: |
-          echo $RELEASE_VERSION
-          echo ${{ steps.vars.outputs.GIT_TAG }}
-
-
-
-    
-    
-    - name: Set output
-      id: vars1
-      run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
-    - name: Check output
-      env:
-          RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
-      run: |
-          echo $RELEASE_VERSION
-          echo ${{ steps.vars.outputs.tag }}
-    
-    
-    
-    
-
-
-
-
-
-    - uses: actions/checkout@v2
-    - id: read-version
-      uses: NiklasLehnfeld/flutter-version-number-action@main
-      with:
-        file-path: ./pubspec.yaml
-    - uses: nick-invision/assert-action@v1
     - name: Prepare for release
       uses: actions/create-release@v1
       id: create_release
       env:
         GITHUB_TOKEN: ${{ secrets.FS_GITHUB_TOKEN }}
-#       if: steps.read-version.outputs.version-number == steps.gitversion.outputs.MajorMinorPatch
       with:
-          tag_name: ${{ steps.read-version.outputs.version-number }}+${{ steps.read-version.outputs.version-number == steps.gitversion.outputs.MajorMinorPatch && steps.gitversion.outputs.PreReleaseNumber || 1 }}
-          release_name: Release ${{ steps.gitversion.outputs.BuildMetaData }}
+          tag_name: ${{ steps.gitversion.outputs.SemVer }}
+          release_name: Release ${{ steps.gitversion.outputs.SemVer }}
           body: |
             Changes in this Release
             - First Change
@@ -219,7 +177,7 @@ jobs:
         # Otherwise the build will freeze at signing the frameworks if the keychain is locked
         echo "Increasing keychain auto lock timeout"
         security set-keychain-settings -lut 1800 ~/Library/Keychains/build.keychain
-        flutter build ipa --release --build-number=${{ steps.gitversion.outputs.BuildMetaData }} --export-options-plist=ios/ExportOptions.plist
+        flutter build ipa --release --build-number=${{ steps.gitversion.outputs.PreReleaseNumber }} --export-options-plist=ios/ExportOptions.plist
         echo "Locking keychain"
         security lock-keychain ~/Library/Keychains/build.keychain
     - name: Upload IPA artifact
