@@ -129,7 +129,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.FS_GITHUB_TOKEN }}
       with:
-          tag_name: ${{ steps.read-version.outputs.version-number }}
+          tag_name: ${{ steps.read-version.outputs.version-number }}(${{ 1 }})
           release_name: Release ${{ steps.gitversion.outputs.PreReleaseNumber }}
           body: |
             Changes in this Release
