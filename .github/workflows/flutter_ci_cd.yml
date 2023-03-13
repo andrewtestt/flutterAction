@@ -131,11 +131,11 @@ jobs:
 #       if: steps.read-version.outputs.version-number == steps.gitversion.outputs.MajorMinorPatch
       with:
           tag_name:
-             if [[steps.read-version.outputs.version-number == steps.gitversion.outputs.MajorMinorPatch]]; then 
+             ${{if [[steps.read-version.outputs.version-number == steps.gitversion.outputs.MajorMinorPatch]]; then 
                 ${{ steps.read-version.outputs.version-number }}(${{0}})
              else
                 ${{ steps.read-version.outputs.version-number }}(${{0}})
-             fi
+             fi}}
           release_name: Release ${{ steps.gitversion.outputs.BuildMetaData }}
           body: |
             Changes in this Release
