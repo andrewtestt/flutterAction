@@ -115,6 +115,7 @@ jobs:
 
 
     - name: Checkout latest release tag
+      id: test
       run: |
           echo "LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)"
           git checkout $LATEST_TAG
@@ -135,7 +136,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.FS_GITHUB_TOKEN }}
 #       if: steps.read-version.outputs.version-number == steps.gitversion.outputs.MajorMinorPatch
       with:
-          tag_name: ${{ steps.read-version.outputs.version-number }}+${{ steps.read-version.outputs.version-number == steps.gitversion.outputs.MajorMinorPatch && steps.gitversion.outputs.PreReleaseNumber || LATEST_TAG }}
+          tag_name: ${{ steps.read-version.outputs.version-number }}+${{ steps.read-version.outputs.version-number == steps.gitversion.outputs.MajorMinorPatch && steps.gitversion.outputs.PreReleaseNumber || steps.test.outputs.LATEST_TAG }}
           release_name: Release ${{ steps.gitversion.outputs.BuildMetaData }}
           body: |
             Changes in this Release
