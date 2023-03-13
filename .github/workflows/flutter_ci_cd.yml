@@ -130,12 +130,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.FS_GITHUB_TOKEN }}
 #       if: steps.read-version.outputs.version-number == steps.gitversion.outputs.MajorMinorPatch
       with:
-          tag_name: ${{ steps.read-version.outputs.version-number }}(${{ steps.read-version.outputs.version-number == steps.gitversion.outputs.MajorMinorPatch && '2' || '1' }})
-#              ${{if ${{steps.read-version.outputs.version-number == steps.gitversion.outputs.MajorMinorPatch}}; then 
-#                 ${{ steps.read-version.outputs.version-number }}(${{ steps.read-version.outputs.version-number == steps.gitversion.outputs.MajorMinorPatch && '2' || '1' }})
-#              else
-#                 ${{ steps.read-version.outputs.version-number }}(${{0}})
-#              fi}}
+          tag_name: ${{ steps.read-version.outputs.version-number }}(${{ steps.read-version.outputs.version-number == steps.gitversion.outputs.MajorMinorPatch && steps.gitversion.outputs.PreReleaseNumber || '1' }})
           release_name: Release ${{ steps.gitversion.outputs.BuildMetaData }}
           body: |
             Changes in this Release
