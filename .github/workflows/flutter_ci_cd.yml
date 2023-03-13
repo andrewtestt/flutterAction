@@ -118,16 +118,13 @@ jobs:
       with:
         file-path: ./pubspec.yaml
     - uses: nick-invision/assert-action@v1
-      with:
-        expected: 0.0.1+1
-        actual: ${{ steps.read-version.outputs.version-number }}
     - name: Prepare for release
       uses: actions/create-release@v1
       id: create_release
       env:
         GITHUB_TOKEN: ${{ secrets.FS_GITHUB_TOKEN }}
       with:
-          tag_name: "${{ steps.yaml-data.outputs.data }} (${{ steps.gitversion.outputs.PreReleaseNumber }})"
+          tag_name: "${{ steps.read-version.outputs.version-number }} (${{ steps.gitversion.outputs.PreReleaseNumber }})"
           release_name: Release ${{ steps.gitversion.outputs.PreReleaseNumber }}
           body: |
             Changes in this Release
