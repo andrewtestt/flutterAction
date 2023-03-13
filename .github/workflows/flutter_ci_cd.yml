@@ -129,14 +129,17 @@ jobs:
 
     
     
-    - uses: olegtarasov/get-tag@v2.1.2
-      id: tagName
-      with:
-        tagRegex: "(?<package>.*)-(?<version>.*)" 
-    - name: Some other step # Output usage example
-      with:
-        dirname: ${{ steps.tagName.outputs.package }}
-        tagname: ${{ steps.tagName.outputs.version }}
+    - uses: actions/checkout@v2
+    - name: Set env
+      run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+    - name: Test
+      run: |
+          echo $RELEASE_VERSION
+          echo ${{ env.RELEASE_VERSION }}
+    
+    
+    
+    
 
 
 
