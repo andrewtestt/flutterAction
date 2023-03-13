@@ -128,7 +128,7 @@ jobs:
       id: create_release
       env:
         GITHUB_TOKEN: ${{ secrets.FS_GITHUB_TOKEN }}
-      if: steps.read-version.outputs.version-number == steps.gitversion.outputs.MajorMinorPatch
+#       if: steps.read-version.outputs.version-number == steps.gitversion.outputs.MajorMinorPatch
       with:
           tag_name:
              if [[steps.read-version.outputs.version-number == steps.gitversion.outputs.MajorMinorPatch]]; then 
