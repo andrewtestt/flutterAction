@@ -134,9 +134,7 @@ jobs:
                ${{ steps.read-version.outputs.version-number }}(${{ steps.gitversion.outputs.BuildMetaData }})
             else
                ${{ steps.read-version.outputs.version-number }}(${{ 1 }})
-            fi
-          
-            ${{ steps.read-version.outputs.version-number }}(${{ steps.gitversion.outputs.BuildMetaData }})
+            fi          
           release_name: Release ${{ steps.gitversion.outputs.BuildMetaData }}
           body: |
             Changes in this Release
