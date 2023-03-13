@@ -129,8 +129,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.FS_GITHUB_TOKEN }}
       with:
-          tag_name: ${{ steps.read-version.outputs.version-number }}(${{ steps.gitversion.outputs.PreReleaseNumber }})
-          release_name: Release ${{ steps.gitversion.outputs.PreReleaseNumber }}
+          tag_name: ${{ steps.read-version.outputs.version-number }}(${{ steps.gitversion.outputs.BuildMetaData }})
+          release_name: Release ${{ steps.gitversion.outputs.BuildMetaData }}
           body: |
             Changes in this Release
             - First Change
