@@ -127,12 +127,12 @@ jobs:
 
 
 
-    - uses: oprypin/find-latest-tag@v1
-      with:
-        repository: octokit/rest.js  # The repository to scan.
-        releases-only: true  # We know that all relevant tags have a GitHub release for them.
-      id: octokit  # The step ID to refer to later.
-    - run: echo "Octokit is at version ${{ steps.octokit.outputs.tag }}"
+    - name: GitHub Tag Name example
+      run: |
+         echo "Tag name from GITHUB_REF_NAME: $GITHUB_REF_NAME"
+         echo "Tag name from github.ref_name: ${{  github.ref_name }}"
+
+
 
 
 
