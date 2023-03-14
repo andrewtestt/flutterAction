@@ -136,8 +136,7 @@ jobs:
         echo "Tag name from GITHUB_REF_NAME: $GITHUB_HEAD_REF"
         echo "Tag name from github.ref_name: ${{  steps.previoustag.outputs.tag }}"
         echo "Tag name from github.ref_name: ${{  steps.split.outputs._0 }}"
-        echo "GIT_TAG=`echo ${{steps.split.outputs._1}} + 1`" >> $GITHUB_ENV
-        
+        echo ::set-env name=GIT_TAG::$(($steps.split.outputs._1+1))
     
     
    
