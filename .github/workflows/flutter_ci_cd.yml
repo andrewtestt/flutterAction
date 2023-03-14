@@ -113,7 +113,7 @@ jobs:
 #        configFilePath: ./.github/gitversion.yml
 
 
-
+    - uses: actions/checkout@v1
     - name: GitHub Tag Name example
       run: |
         echo "Tag name from GITHUB_REF_NAME: $GITHUB_HEAD_REF"
@@ -140,7 +140,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.FS_GITHUB_TOKEN }}
 #       if: steps.read-version.outputs.version-number == steps.gitversion.outputs.MajorMinorPatch
       with:
-          tag_name: ${{30.0.6}} # ${{ steps.read-version.outputs.version-number }}+${{ steps.read-version.outputs.version-number == steps.gitversion.outputs.MajorMinorPatch && steps.gitversion.outputs.PreReleaseNumber || 1 }}
+          tag_name: ${{"30.0.6"}} # ${{ steps.read-version.outputs.version-number }}+${{ steps.read-version.outputs.version-number == steps.gitversion.outputs.MajorMinorPatch && steps.gitversion.outputs.PreReleaseNumber || 1 }}
           release_name: Release ${{ steps.gitversion.outputs.BuildMetaData }}
           body: |
             Changes in this Release
