@@ -113,11 +113,20 @@ jobs:
 #        configFilePath: ./.github/gitversion.yml
 
 
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0 # Required due to the way Git works, without it this action won't be able to find any or the correct tags
+    - name: 'Get Previous tag'
+      id: previoustag
+      uses: "WyriHaximus/github-action-get-previous-tag@v1"
+      with:
+        fallback: 1.0.0 # Optional fallback tag to use when no tag can be found
+
+
     - name: GitHub Tag Name example
       run: |
         echo "Tag name from GITHUB_REF_NAME: $GITHUB_HEAD_REF"
-        echo "Tag name from github.ref_name: ${{  github.head_ref }}"
+        echo "Tag name from github.ref_name: ${{  steps.previoustag.outputs.tag }}"
     
     
     
