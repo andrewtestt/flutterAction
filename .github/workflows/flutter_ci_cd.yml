@@ -122,21 +122,24 @@ jobs:
       with:
         fallback: 1.0.0 # Optional fallback tag to use when no tag can be found
 
+    - name: Split version code
+      uses: xom9ikk/split@v1
+      id: split
+      with:
+        string: "${{  steps.previoustag.outputs.tag }}"
+        separator: +
+        limit: -1
 
     - name: GitHub Tag Name example
       run: |
         echo "Tag name from GITHUB_REF_NAME: $GITHUB_HEAD_REF"
         echo "Tag name from github.ref_name: ${{  steps.previoustag.outputs.tag }}"
+        echo "Tag name from github.ref_name: ${{  steps.split.outputs._0 }}"
+        echo "Tag name from github.ref_name: ${{  steps.split.outputs._1 }}"
         
     
     
-    - uses: rishabhgupta/split-by@v1
-      id: split
-      with:
-        string: ${{  steps.previoustag.outputs.tag }}
-        split-by: '+'
-    - run: | 
-         echo "${{ steps.split.outputs._1}}"
+   
 
 
 
