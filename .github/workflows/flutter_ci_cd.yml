@@ -133,12 +133,14 @@ jobs:
     - name: GitHub Tag Name example
       env:
           NUMBER: ${{ steps.split.outputs._1 }}
+          run: |
+            echo ::set-env name=GIT_TAG::$(($NUMBER+1))
       id: test
       run: |
         echo "Tag name from GITHUB_REF_NAME: $GITHUB_HEAD_REF"
         echo "Tag name from github.ref_name: ${{  steps.previoustag.outputs.tag }}"
         echo "Tag name from github.ref_name: ${{  steps.split.outputs._0 }}"
-        echo ::set-env name=GIT_TAG::$(($NUMBER+1))
+        echo ${{GIT_TAG}}
     
     
    
