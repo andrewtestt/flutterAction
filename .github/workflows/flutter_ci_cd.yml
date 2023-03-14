@@ -132,10 +132,7 @@ jobs:
 
     - name: GitHub Tag Name example
       id: test
-      env:
-          NUMBER: ${{ steps.split.outputs._1 }}
-          run: |
-            echo ::set-env name=GIT_TAG::$(($NUMBER+1))
+      
       run: |
         echo "Tag name from GITHUB_REF_NAME: $GITHUB_HEAD_REF"
         echo "Tag name from github.ref_name: ${{  steps.previoustag.outputs.tag }}"
@@ -155,14 +152,16 @@ jobs:
       with:
         file-path: ./pubspec.yaml
     - uses: nick-invision/assert-action@v1
-    - name: Prepare for release
+    - name: Prepare for release          
       uses: actions/create-release@v1
       id: create_release
       env:
         GITHUB_TOKEN: ${{ secrets.FS_GITHUB_TOKEN }}
+        NUMBER: ${{ steps.split.outputs._1 }}
+        run: echo ::set-env name=GIT_TAG::$(($NUMBER+1))
 #       if: steps.read-version.outputs.version-number == steps.gitversion.outputs.MajorMinorPatch
       with:
-          tag_name: ${{ steps.read-version.outputs.version-number }}+${{ steps.read-version.outputs.version-number == steps.split.outputs._0 && steps.test.outputs.GIT_TAG || steps.test.outputs.GIT_TAG }}
+          tag_name: ${{ steps.read-version.outputs.version-number }}+${{ steps.read-version.outputs.version-number == steps.split.outputs._0 && steps.test.outputs.GIT_TAG || $(($NUMBER+1)) }}
           release_name: Release ${{ steps.gitversion.outputs.BuildMetaData }}
           body: |
             Changes in this Release
