@@ -164,11 +164,8 @@ jobs:
       id: create_release
       env:
         GITHUB_TOKEN: ${{ secrets.FS_GITHUB_TOKEN }}
-        NUMBER: ${{ steps.split.outputs._1 }}
-        run: echo ::set-env name=GIT_TAG::$(($NUMBER+1))
-#       if: steps.read-version.outputs.version-number == steps.gitversion.outputs.MajorMinorPatch
       with:
-          tag_name: ${{ steps.read-version.outputs.version-number }}+${{ steps.read-version.outputs.version-number == steps.split.outputs._0 && steps.test.outputs.GIT_TAG || env.GITHUB_RUN_NUMBER_WITH_OFFSET }}
+          tag_name: ${{ steps.read-version.outputs.version-number }}+${{ steps.read-version.outputs.version-number == steps.split.outputs._0 && env.GITHUB_RUN_NUMBER_WITH_OFFSET || 1 }}
           release_name: Release ${{ steps.gitversion.outputs.BuildMetaData }}
           body: |
             Changes in this Release
