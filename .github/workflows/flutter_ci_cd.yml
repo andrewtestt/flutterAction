@@ -127,7 +127,7 @@ jobs:
       run: |
         echo "Tag name from GITHUB_REF_NAME: $GITHUB_HEAD_REF"
         echo "Tag name from github.ref_name: ${{  steps.previoustag.outputs.tag }}"
-        echo "::set-output name=matrix-browser::[\"${steps.previoustag.outputs.tag//'+ '/\"+\"}\"]"
+        echo "::set-output name=matrix-browser:: $(echo [\"$steps.previoustag.outputs.tag\"] |sed 's/+/\", \"/g')"
     
     
     
