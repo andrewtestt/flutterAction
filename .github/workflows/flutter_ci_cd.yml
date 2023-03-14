@@ -99,17 +99,6 @@ jobs:
       with:
         clean: 'true'
         fetch-depth: 0
-      
-#     - name: Install GitVersion
-#       uses: gittools/actions/gitversion/setup@v0.9.7
-#       with:
-#         versionSpec: '5.x'
-        
-#     - name: Determine Version
-#       id: gitversion
-#       uses: gittools/actions/gitversion/execute@v0.9.7
-
-
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0 # Required due to the way Git works, without it this action won't be able to find any or the correct tags
@@ -126,30 +115,12 @@ jobs:
         string: "${{  steps.previoustag.outputs.tag }}"
         separator: +
         limit: -1
-
-#     - name: GitHub Tag Name example
-#       id: test
-      
-#       run: |
-#         echo "Tag name from GITHUB_REF_NAME: $GITHUB_HEAD_REF"
-#         echo "Tag name from github.ref_name: ${{  steps.previoustag.outputs.tag }}"
-#         echo "Tag name from github.ref_name: ${{  steps.split.outputs._0 }}"
-#         echo "Tag name from github.ref_name: ${{  steps.test.GIT_TAG }}"
-    
-    
-   
     - name: run number with offset
-      id: chekcc
       env:
          NUM: ${{ steps.split.outputs._1 }}
          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
       run: |
          echo ::set-env name=GITHUB_RUN_NUMBER_WITH_OFFSET::$(($NUM+1))
-    - run: echo $GITHUB_RUN_NUMBER_WITH_OFFSET
-
-
-
-
     - uses: actions/checkout@v2
     - id: read-version
       uses: NiklasLehnfeld/flutter-version-number-action@main
