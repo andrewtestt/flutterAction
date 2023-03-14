@@ -135,7 +135,7 @@ jobs:
         echo "Tag name from GITHUB_REF_NAME: $GITHUB_HEAD_REF"
         echo "Tag name from github.ref_name: ${{  steps.previoustag.outputs.tag }}"
         echo "Tag name from github.ref_name: ${{  steps.split.outputs._0 }}"
-        echo "Tag name from github.ref_name: ${{  steps.split.outputs._1 }}"
+        echo "Tag name from github.ref_name: ${{  steps.split.outputs._1 + 1 }}"
         
     
     
@@ -158,7 +158,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.FS_GITHUB_TOKEN }}
 #       if: steps.read-version.outputs.version-number == steps.gitversion.outputs.MajorMinorPatch
       with:
-          tag_name: ${{ steps.read-version.outputs.version-number }}+${{ steps.read-version.outputs.version-number == steps.split.outputs._0 && ${{steps.split.outputs._1 + 1}} || 1 }}
+          tag_name: ${{ steps.read-version.outputs.version-number }}+${{ steps.read-version.outputs.version-number == steps.split.outputs._0 && steps.split.outputs._1 + 1 || 1 }}
           release_name: Release ${{ steps.gitversion.outputs.BuildMetaData }}
           body: |
             Changes in this Release
