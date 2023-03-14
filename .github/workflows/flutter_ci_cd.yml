@@ -117,7 +117,7 @@ jobs:
     - name: GitHub Tag Name example
       run: |
         echo "Tag name from GITHUB_REF_NAME: $GITHUB_REF_NAME"
-        echo "Tag name from github.ref_name: ${{  github.action_ref }}"
+        echo "Tag name from github.ref_name: ${{  refs/heads/new }}"
     
     
     
