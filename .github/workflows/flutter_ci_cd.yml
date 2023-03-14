@@ -127,10 +127,16 @@ jobs:
       run: |
         echo "Tag name from GITHUB_REF_NAME: $GITHUB_HEAD_REF"
         echo "Tag name from github.ref_name: ${{  steps.previoustag.outputs.tag }}"
-        echo "::set-output name=matrix-browser:: $(echo [\"$steps.previoustag.outputs.tag\"] |sed 's/+/\", \"/g')"
+        
     
     
-    
+    - uses: rishabhgupta/split-by@v1
+      id: split
+      with:
+        string: ${{  steps.previoustag.outputs.tag }}
+        split-by: '+'
+    - run: | 
+         echo "${{ steps.split.outputs._1}}"
 
 
 
