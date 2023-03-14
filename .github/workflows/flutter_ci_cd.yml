@@ -142,6 +142,7 @@ jobs:
     
    
     - name: run number with offset
+      id: NumberUpdate
       env:
          NUM: ${{ steps.split.outputs._1 }}
          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
@@ -167,7 +168,7 @@ jobs:
         run: echo ::set-env name=GIT_TAG::$(($NUMBER+1))
 #       if: steps.read-version.outputs.version-number == steps.gitversion.outputs.MajorMinorPatch
       with:
-          tag_name: ${{ steps.read-version.outputs.version-number }}+${{ steps.read-version.outputs.version-number == steps.split.outputs._0 && steps.test.outputs.GIT_TAG || $GITHUB_RUN_NUMBER_WITH_OFFSET }}
+          tag_name: ${{ steps.read-version.outputs.version-number }}+${{ steps.read-version.outputs.version-number == steps.split.outputs._0 && steps.test.outputs.GIT_TAG || GITHUB_RUN_NUMBER_WITH_OFFSET }}
           release_name: Release ${{ steps.gitversion.outputs.BuildMetaData }}
           body: |
             Changes in this Release
