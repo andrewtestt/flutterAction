@@ -159,14 +159,23 @@ jobs:
       with:
         file-path: ./pubspec.yaml
     - uses: nick-invision/assert-action@v1
+    
+    - name: Split version code
+      uses: xom9ikk/split@v1
+      id: split-flutter
+      with:
+        string: "${{ steps.read-version.outputs.version-number }}"
+        separator: +
+        limit: -1
+    
     - name: Prepare for release          
       uses: actions/create-release@v1
       id: create_release
       env:
         GITHUB_TOKEN: ${{ secrets.FS_GITHUB_TOKEN }}
       with:
-          tag_name: ${{ steps.read-version.outputs.version-number }}+${{ steps.read-version.outputs.version-number == steps.split.outputs._0 && env.GITHUB_RUN_NUMBER_WITH_OFFSET || 1 }}
-          release_name: Release ${{ steps.gitversion.outputs.BuildMetaData }}
+          tag_name: ${{ steps.split-flutter.outputs.outputs._0 }}+${{ steps.split-flutter.outputs.outputs._0 == steps.split.outputs._0 && env.GITHUB_RUN_NUMBER_WITH_OFFSET || 1 }}
+          release_name: Release ${{ steps.split-flutter.outputs.outputs._0 }}+${{ steps.split-flutter.outputs.outputs._0 == steps.split.outputs._0 && env.GITHUB_RUN_NUMBER_WITH_OFFSET || 1 }}
           body: |
             Changes in this Release
             - First Change
@@ -224,7 +233,7 @@ jobs:
         # Otherwise the build will freeze at signing the frameworks if the keychain is locked
         echo "Increasing keychain auto lock timeout"
         security set-keychain-settings -lut 1800 ~/Library/Keychains/build.keychain
-        flutter build ipa --release --build-number=${{ steps.gitversion.outputs.BuildMetaData }} --export-options-plist=ios/ExportOptions.plist
+        flutter build ipa --release --build-number=${{ steps.split-flutter.outputs.outputs._0 == steps.split.outputs._0 && env.GITHUB_RUN_NUMBER_WITH_OFFSET || 1 }} --export-options-plist=ios/ExportOptions.plist
         echo "Locking keychain"
         security lock-keychain ~/Library/Keychains/build.keychain
     - name: Upload IPA artifact
