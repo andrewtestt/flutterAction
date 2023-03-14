@@ -140,7 +140,6 @@ jobs:
         echo "Tag name from GITHUB_REF_NAME: $GITHUB_HEAD_REF"
         echo "Tag name from github.ref_name: ${{  steps.previoustag.outputs.tag }}"
         echo "Tag name from github.ref_name: ${{  steps.split.outputs._0 }}"
-        echo ${{GIT_TAG}}
     
     
    
