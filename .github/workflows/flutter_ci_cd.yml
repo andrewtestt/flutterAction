@@ -15,10 +15,6 @@ env:
   PATH_TO_IPA: 'build/ios/ipa/untitled1.ipa'
 
 jobs:
- build:
-    environment: qwerty
-    env:
-       TEST_VAL: ${{ secrets.TEST_QWER }}
  code-analysis-and-testing:
     name: Code analysis and testing
     runs-on: ubuntu-latest
@@ -92,6 +88,7 @@ jobs:
 
 
  release:
+    environment: qwerty
     name: iOS CI/CD
 #     needs: code-analysis-and-testing
     
@@ -100,7 +97,7 @@ jobs:
     steps:  
     - name: Test Secrets
       run: |
-        echo ${{evn.TEST_VAL}}
+        echo ${{secrets.TEST_VAL}}
     - name: Checkout repository
       uses: actions/checkout@v3
       with:
