@@ -97,7 +97,7 @@ jobs:
     steps:  
     - name: Test Secrets
       run: |
-        echo ${{secrets.TEST_VAL}}
+        echo ${{ secrets.TEST_QWER }}
     - name: Checkout repository
       uses: actions/checkout@v3
       with:
