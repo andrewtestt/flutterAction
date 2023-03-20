@@ -88,9 +88,9 @@ jobs:
 
 
   release:
-    environment: Dev
-    env:
-        TEST_VAL: ${{ secrets.TEST_QWER }}
+#     environment: Dev
+#     env:
+#         TEST_VAL: ${{ secrets.TEST_QWER }}
     name: iOS CI/CD
 #     needs: code-analysis-and-testing
     runs-on: macos-latest
